@@ -42,7 +42,7 @@ describe('SearchBox', () => {
       fireEvent.click(screen.getByRole('button', { name: /Search/i }));
       // Should not crash, but may not call updateInfo
       await waitFor(() => expect(mockUpdate).not.toHaveBeenCalled());
-    } catch (e) {
+    } catch {
       // Suppress unhandled rejection warning
     } finally {
       window.fetch.mockRestore && window.fetch.mockRestore();

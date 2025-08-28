@@ -1,1 +1,1 @@
-process.on('unhandledRejection', () => {});
+window.addEventListener('unhandledrejection', () => {});
