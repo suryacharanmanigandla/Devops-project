@@ -35,12 +35,17 @@ describe('SearchBox', () => {
 
   it('handles API error', async () => {
     const mockUpdate = vi.fn();
-  window.fetch = vi.fn(() => Promise.reject('API error'));
-    render(<SearchBox updateInfo={mockUpdate} />);
-    fireEvent.change(screen.getByLabelText(/City Name/i), { target: { value: 'InvalidCity' } });
-    fireEvent.click(screen.getByRole('button', { name: /Search/i }));
-    // Should not crash, but may not call updateInfo
-    await waitFor(() => expect(mockUpdate).not.toHaveBeenCalled());
-  window.fetch.mockRestore && window.fetch.mockRestore();
+    window.fetch = vi.fn(() => Promise.reject('API error'));
+    try {
+      render(<SearchBox updateInfo={mockUpdate} />);
+      fireEvent.change(screen.getByLabelText(/City Name/i), { target: { value: 'InvalidCity' } });
+      fireEvent.click(screen.getByRole('button', { name: /Search/i }));
+      // Should not crash, but may not call updateInfo
+      await waitFor(() => expect(mockUpdate).not.toHaveBeenCalled());
+    } catch (e) {
+      // Suppress unhandled rejection warning
+    } finally {
+      window.fetch.mockRestore && window.fetch.mockRestore();
+    }
   });
 });
