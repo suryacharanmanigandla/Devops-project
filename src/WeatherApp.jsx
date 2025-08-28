@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+import React from 'react';
+=======
+>>>>>>> main
 import SearchBox from "./SearchBox";
 import InfoBox from "./InfoBox";
 import { useState } from "react";
