@@ -28,7 +28,7 @@ export default function SearchBox({ updateInfo }) {
                 atmosphere: resJson.weather[0].description
             }
             updateInfo(wea)
-        } catch (error) {
+        } catch {
             // Suppress error to prevent workflow failure
             // Optionally: updateInfo({ city, error: true });
         }
