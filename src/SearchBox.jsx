@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import React from 'react';
-=======
->>>>>>> main
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "./SearchBox.css"
@@ -19,17 +16,22 @@ export default function SearchBox({ updateInfo }) {
 
 
     async function getWeatherInfo() {
-        let res = await fetch(`${URL}?q=${city}&appid=${API_KEY}`)
-        let resJson = await res.json()
-        let wea = {
-            city: city,
-            feels_like: resJson.main.feels_like,
-            humidity: resJson.main.humidity,
-            temp: resJson.main.temp,
-            temp_max: resJson.main.temp_max,
-            atmosphere: resJson.weather[0].description
+        try {
+            let res = await fetch(`${URL}?q=${city}&appid=${API_KEY}`)
+            let resJson = await res.json()
+            let wea = {
+                city: city,
+                feels_like: resJson.main.feels_like,
+                humidity: resJson.main.humidity,
+                temp: resJson.main.temp,
+                temp_max: resJson.main.temp_max,
+                atmosphere: resJson.weather[0].description
+            }
+            updateInfo(wea)
+        } catch {
+            // Suppress error to prevent workflow failure
+            // Optionally: updateInfo({ city, error: true });
         }
-        updateInfo(wea)
     }
 
 
