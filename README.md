@@ -57,8 +57,9 @@ _All changes made by Sai Teja (Continuous Integration) ensure robust, automated 
 
 ----
 
-### 🚀 Continuous Deployment (CD) with Vercel by Sai Prasad
 
+## 🚀 Continuous Deployment (CD) with Vercel by Sai Prasad
+----
 
 ** I was responsible for implementing Continuous Deployment (CD) in this project. The goal was to automate deployment to Vercel whenever the project is updated.
 
