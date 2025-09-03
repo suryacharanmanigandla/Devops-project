@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import "./SearchBox.css";
-import { useState } from 'react';
 
 export default function SearchBox({ updateInfo }) {
     let [city, setCity] = useState("");
@@ -67,7 +67,7 @@ export default function SearchBox({ updateInfo }) {
                     color="secondary" 
                     type="submit" 
                     disabled={loading} 
-                    sx={{ minWidth: 120 }} // keeps button width steady
+                    sx={{ minWidth: 120 }}
                 >
                     {loading ? (
                         <CircularProgress size={24} color="inherit" />
