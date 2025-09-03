@@ -1,12 +1,71 @@
-# React + Vite
+# SkyCast 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Group 2 Project**  
+**GitHub Repository**: https://github.com/suryacharanmanigandla/Devops-project.git
 
-Currently, two official plugins are available:
+## 🌟 Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+SkyCast is a modern React-based weather application that demonstrates the implementation of DevOps principles through a full-stack development approach. This project showcases how different phases of learning - including frontend and backend development - come together to create a seamless user experience.
 
-## Expanding the ESLint configuration
+## 👥 Team Members & DevOps Roles
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **23211a6770** - Git Manager (Version Control & Repository Management)
+- **23211a6781** - Docker Manager (Containerization & Deployment)
+- **23211a67a6** - Planning (Project Architecture & Strategy)
+- **23211a67a7** - Coding (Frontend + Backend Development) 
+- **23211a67b8** - CI (Continuous Integration)
+- **23211a67c1** - CD (Continuous Deployment)
+- **23211a67c2** - Monitoring (System Monitoring & Observability)
+
+
+
+
+### Frontend Development (React + Vite)
+
+
+## 🏗️ Technical Implementation Details
+
+### Frontend Stack
+- **React 19.1.0**: Latest React with modern hooks
+- **Vite**: Fast build tool and development server
+- **Material-UI**: Component library for consistent design
+- **Framer Motion**: Animation library for smooth interactions
+- **CSS Modules**: Scoped styling approach
+
+### Backend Integration
+- **OpenWeatherMap API**: Real-time weather data source
+- **RESTful API Design**: Standard HTTP methods and responses
+- **Error Handling**: Comprehensive error states and user feedback
+- **Data Validation**: Input sanitization and response validation
+
+
+## 🛠️ Development Workflow
+
+### Getting Started
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linting
+npm run lint
+```
+
+### Project Structure
+```
+src/
+├── App.jsx              # Main application component
+├── WeatherApp.jsx       # Weather logic and state management
+├── SearchBox.jsx        # Search functionality with API integration
+├── InfoBox.jsx          # Weather data display with animations
+├── SearchBox.css        # Component styling
+└── main.jsx            # Application entry point
+```
