@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "lint": "eslint .",
-  "test": "vitest run tests",
-  "preview": "vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --report-unused-disable-directives",
+    "test": "vitest run tests",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

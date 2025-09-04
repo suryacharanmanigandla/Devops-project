@@ -4,9 +4,11 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./tests/setup.jsx'],
-    deps: {
-      fallbackCJS: true
+    setupFiles: ['./tests/setup.js'],
+    server: {
+      deps: {
+        fallbackCJS: true
+      }
     }
-  },
+  }
 });

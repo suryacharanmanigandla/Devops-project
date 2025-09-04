@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {motion} from "framer-motion";
 import "./SearchBox.css";
 import {IMG_WEATHER_MAP} from "./weatherMap";
 
@@ -51,14 +50,9 @@ export default function InfoBox({weatherData}) {
                         }}
                     >
                         {city}
-                        <motion.div
-                            key={atmosphere}
-                            initial={{opacity: 0, scale: 0.8}}
-                            animate={{opacity: 1, scale: 1}}
-                            transition={{duration: 0.6, ease: "easeOut"}}
-                        >
+                        <div>
                             <IconComponent sx={{fontSize: 50, color: weatherInfo.color || "#000"}} />
-                        </motion.div>
+                        </div>
                     </Typography>
                     <Typography variant="body1" color="text.secondary" component="div">
                         <p>
