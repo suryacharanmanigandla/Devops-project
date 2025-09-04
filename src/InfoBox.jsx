@@ -3,40 +3,82 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import "./SearchBox.css"
+import {motion} from "framer-motion";
+import "./SearchBox.css";
+import {IMG_WEATHER_MAP} from "./weatherMap";
 
-export default function InfoBox({ weatherData }) {
-    const IMG_URL = "https://images.unsplash.com/photo-1603695820889-f8a0a86b8712?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZHVzdCUyMHN0b3JtfGVufDB8fDB8fHww"
+// This object maps weather descriptions to image URLs and icons
+export default function InfoBox({weatherData}) {
+    if (!weatherData) return null;
 
+    const {temp, feels_like, temp_max, humidity, city, atmosphere} = weatherData;
 
+    const weatherKey = atmosphere?.toLowerCase();
+    const weatherInfo = IMG_WEATHER_MAP[weatherKey] || IMG_WEATHER_MAP.default;
+    const IconComponent = weatherInfo.icon;
 
+    const kelvinToCelsius = (temp) => (temp - 273.15).toFixed(1);
 
-    return (<>
-        <h1 className='SearchBox'>Weather Information</h1>
+    return (
         <div className="weatherContainer">
-            <Card sx={{ maxWidth: 450 }}>
+            <Card
+                sx={{
+                    maxWidth: 450,
+                    width: "100%",
+                    borderRadius: "15px",
+                    overflow: "hidden",
+                    boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
+                }}
+            >
                 <CardMedia
                     component="img"
-                    alt="green iguana"
-                    height="440"
-                    width="450"
-                    image={IMG_URL}
+                    alt={atmosphere}
+                    height="200"
+                    image={weatherInfo.img}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {weatherData.city}
+                    <Typography
+                        gutterBottom
+                        variant="h4"
+                        component="div"
+                        sx={{
+                            fontWeight: "bold",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center", // <-- centers city + icon
+                            gap: 1,
+                            textAlign: "center",
+                        }}
+                    >
+                        {city}
+                        <motion.div
+                            key={atmosphere}
+                            initial={{opacity: 0, scale: 0.8}}
+                            animate={{opacity: 1, scale: 1}}
+                            transition={{duration: 0.6, ease: "easeOut"}}
+                        >
+                            <IconComponent sx={{fontSize: 50, color: weatherInfo.color || "#000"}} />
+                        </motion.div>
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }} component={"span"}>
-                        <p>The atmosphere having {weatherData.atmosphere}</p>
-                        <p>feels_like = {weatherData.feels_like}</p>
-                        <p>humidity = {weatherData.humidity}</p>
-                        <p>temp = {weatherData.temp}&deg;K</p>
-                        <p>temp_max = {weatherData.temp_max}&deg;K</p>
+                    <Typography variant="body1" color="text.secondary" component="div">
+                        <p>
+                            The atmosphere has a <strong>{atmosphere}</strong>
+                        </p>
+                        <p>
+                            Temperature: <strong>{kelvinToCelsius(temp)}°C</strong>
+                        </p>
+                        <p>
+                            Feels like: <strong>{kelvinToCelsius(feels_like)}°C</strong>
+                        </p>
+                        <p>
+                            Humidity: <strong>{humidity}%</strong>
+                        </p>
+                        <p>
+                            Max Temperature: <strong>{kelvinToCelsius(temp_max)}°C</strong>
+                        </p>
                     </Typography>
                 </CardContent>
             </Card>
         </div>
-    </>)
-
-
+    );
 }
