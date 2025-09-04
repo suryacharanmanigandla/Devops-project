@@ -53,3 +53,44 @@
 ---
 
 _All changes made by Sai Teja (Continuous Integration) ensure robust, automated quality checks for every code update. This setup helps maintain code quality, security, and reliability as the project evolves. Every step is documented and automated for future scalability._
+
+
+----
+
+
+## 🚀 Continuous Deployment (CD) with Vercel by Sai Prasad
+----
+
+** I was responsible for implementing Continuous Deployment (CD) in this project. The goal was to automate deployment to Vercel whenever the project is updated.
+
+1. Created a GitHub Actions workflow (deploy.yml) for automated deployment.
+2. Configured the workflow to:
+3. Run manually (workflow_dispatch) when needed.
+4. Trigger automatically after a successful CI pipeline (handled by other teammates).
+5. Ensured the app is built using Vite before deployment.
+6. Verified build output (dist/ folder) to avoid broken deployments.
+7. Integrated deployment with Vercel using amondnet/vercel-action
+
+
+### ⚡ Deployment Details
+
+- Production Deploys → Triggered when changes are pushed to the main branch.
+
+- Preview Deploys → Available from other branches or manual trigger.
+
+- Secrets Used (stored securely in GitHub):
+
+- VERCEL_TOKEN → Vercel authentication token.
+
+- VERCEL_TEAM_ID → Vercel team/org ID.
+
+- VERCEL_PROJECT_ID → Vercel project ID.
+
+
+### ✅ Outcome
+
+** The project is now automatically deployed to Vercel after every successful CI run.
+
+** This ensures a fast, reliable, and production-ready deployment process.
+
+** Manual deployment option is available when needed.
