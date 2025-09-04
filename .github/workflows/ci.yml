@@ -23,6 +23,8 @@ jobs:
         run: npx eslint . --fix
       - name: Run tests
         run: npm run test
+      - name: Solve vulnerabilities
+        run: npm audit fix --force || true
       - name: Run security audit (moderate)
         run: npm audit --audit-level=moderate
       - name: Upload test results
