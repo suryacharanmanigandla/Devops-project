@@ -7,7 +7,7 @@ import App from '../src/App.jsx';
 describe('App Integration', () => {
   it('renders WeatherApp', () => {
     render(<App />);
-    expect(screen.getByText(/Enter the city/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Enter City/i)).toBeInTheDocument();
     expect(screen.getByRole('button', {name: /search/i})).toBeInTheDocument();
   });
 });
