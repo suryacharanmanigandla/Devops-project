@@ -60,12 +60,22 @@ npm run lint
 ### Project Structure
 ```
 src/
-├── App.jsx              # Main application component
-├── WeatherApp.jsx       # Weather logic and state management
-├── SearchBox.jsx        # Search functionality with API integration
-├── InfoBox.jsx          # Weather data display with animations
-├── SearchBox.css        # Component styling
-└── main.jsx            # Application entry point
+├── App.jsx                # Root component
+├── main.jsx               # Entry point (mounts App, imports global styles)
+├── WeatherApp.jsx         # Container: state, data fetching, feature wiring
+├── components/
+│   ├── SearchBox.jsx      # Presentational search + voice input
+│   ├── CurrentWeather.jsx # Current weather card (presentational)
+│   ├── DailyForecast.jsx  # 7-day horizontal forecast (presentational)
+│   ├── HourlyChart.jsx    # Hourly chart (presentational)
+│   ├── MapView.jsx        # Map + radar overlay (presentational)
+│   └── Widgets.jsx        # Mini widget cards (UV, feels-like, AQI)
+├── services/
+│   └── weatherService.js  # API calls (OpenWeather, Air Pollution)
+├── hooks/
+│   └── useGeolocation.js  # Geolocation hook
+└── styles/
+    └── weather-ui.css     # Global UI styles (glassmorphism, gradients)
 ```
 
 ## 🚀 Continuous Integration (CI) & Testing Setup by Sai Teja
