@@ -1,7 +1,7 @@
 name: Deploy to Vercel (CI → CD)
 
 on:
-  # Manual run (useful for first deploy from cd branch)
+  # Manual run (useful for first deploy or hotfixes)
   workflow_dispatch:
     inputs:
       ref:
@@ -9,24 +9,39 @@ on:
         required: false
         default: 'main'
 
-  # Trigger when the CI workflow completes successfully
+  # Trigger only when CI workflow completes successfully
   workflow_run:
-    workflows: ["CI"]        # <-- must match the "name:" of your CI workflow
+    workflows: ["CI"]        # <-- must exactly match "name:" in ci.yml
     types:
       - completed
-
+      
 jobs:
   deploy:
+<<<<<<< HEAD
+    name: Deploy to Vercel
+=======
     if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
+>>>>>>> ac7974dfc741fc7262708a84fa7f5cd0a93481b6
     runs-on: ubuntu-latest
+    concurrency:
+      group: vercel-deploy
+      cancel-in-progress: true
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || github.ref }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || github.event.workflow_run.head_branch }}
 
-      - name: Setup Node.js (cache npm)
+      - name: Print current branch (debug)
+        run: git branch --show-current
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -74,8 +89,13 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
+          zeit-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+<<<<<<< HEAD
+          working-directory: ./
+=======
           working-directory: ./
           prod: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.ref == 'main') || (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main') }}
+>>>>>>> ac7974dfc741fc7262708a84fa7f5cd0a93481b6

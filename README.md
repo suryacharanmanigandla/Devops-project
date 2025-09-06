@@ -122,12 +122,6 @@ src/
 _All changes made by Sai Teja (Continuous Integration) ensure robust, automated quality checks for every code update. This setup helps maintain code quality, security, and reliability as the project evolves. Every step is documented and automated for future scalability._
 
 
-<<<<<<< HEAD
-----
-
-
-=======
->>>>>>> e9bcb5f757a2ef7df0616cfb9abb7db3d2ed83af
 ## 🚀 Continuous Deployment (CD) with Vercel by Sai Prasad
 ----
 
