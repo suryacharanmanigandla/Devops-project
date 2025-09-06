@@ -17,22 +17,25 @@ on:
       
 jobs:
   deploy:
-    # Only run if:
-    # 1. Manual trigger, OR
-    # 2. CI succeeded AND branch is main
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    concurrency:
+      group: vercel-deploy
+      cancel-in-progress: true
     if: |
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'workflow_run' &&
        github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.head_branch == 'main')
-    runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || github.event.workflow_run.head_branch }}
+
+      - name: Print current branch (debug)
+        run: git branch --show-current
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -54,8 +57,8 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
+          zeit-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ./
-          prod: true
