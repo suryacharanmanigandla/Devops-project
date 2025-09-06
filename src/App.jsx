@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherApp from "./WeatherApp.jsx"
+import CombinedComponents from "./CombinedComponents.jsx"
 
 // import './App.css'
 
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <WeatherApp />
+      <CombinedComponents />
 
     </>
   )
