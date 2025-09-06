@@ -15,13 +15,10 @@ on:
     types:
       - completed
       
+
 jobs:
   deploy:
-<<<<<<< HEAD
     name: Deploy to Vercel
-=======
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
->>>>>>> ac7974dfc741fc7262708a84fa7f5cd0a93481b6
     runs-on: ubuntu-latest
     concurrency:
       group: vercel-deploy
@@ -38,9 +35,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || github.event.workflow_run.head_branch }}
 
-      - name: Print current branch (debug)
-        run: git branch --show-current
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -51,13 +45,17 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
           npm install -g npm@latest
-          npm install @rollup/rollup-linux-x64-gnu --save-optional
-          npm install --no-optional
+          # Install platform-specific Rollup binaries
+          npm install @rollup/rollup-linux-x64-gnu @rollup/rollup-linux-x64-musl @rollup/rollup-darwin-x64 @rollup/rollup-win32-x64-msvc --save-optional
           npm install
+          npm rebuild rollup
 
       - name: Build (Vite)
         env:
-          CI: false  # This prevents treating warnings as errors
+          CI: false
+          # Add platform-specific env vars
+          ROLLUP_NATIVE_EXTENSIONS: 'true'
+          NODE_OPTIONS: '--max-old-space-size=4096'
         run: npm run build
 
       - name: Ensure build output exists
@@ -93,9 +91,5 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-<<<<<<< HEAD
-          working-directory: ./
-=======
           working-directory: ./
           prod: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.ref == 'main') || (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main') }}
->>>>>>> ac7974dfc741fc7262708a84fa7f5cd0a93481b6
