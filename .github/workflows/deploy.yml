@@ -15,6 +15,7 @@ on:
     types:
       - completed
       
+
 jobs:
   deploy:
     name: Deploy to Vercel
@@ -34,9 +35,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.ref || github.event.workflow_run.head_branch }}
 
-      - name: Print current branch (debug)
-        run: git branch --show-current
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -45,14 +43,46 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          rm -rf node_modules package-lock.json
+          npm install -g npm@latest
+          # Install platform-specific Rollup binaries
+          npm install @rollup/rollup-linux-x64-gnu @rollup/rollup-linux-x64-musl @rollup/rollup-darwin-x64 @rollup/rollup-win32-x64-msvc --save-optional
+          npm install
+          npm rebuild rollup
 
       - name: Build (Vite)
+        env:
+          CI: false
+          # Add platform-specific env vars
+          ROLLUP_NATIVE_EXTENSIONS: 'true'
+          NODE_OPTIONS: '--max-old-space-size=4096'
         run: npm run build
 
       - name: Ensure build output exists
         run: |
-          if [ ! -d dist ]; then echo "Build failed: dist/ not found"; exit 1; fi
+          if [ ! -d dist ]; then 
+            echo "Build failed: dist/ not found"
+            echo "Build output:"
+            ls -la
+            exit 1
+          fi
+          echo "Build output contents:"
+          ls -la dist/
+
+      - name: Validate Vercel Configuration
+        run: |
+          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "Error: VERCEL_TOKEN is not set in repository secrets"
+            exit 1
+          fi
+          if [ -z "${{ secrets.VERCEL_TEAM_ID }}" ]; then
+            echo "Error: VERCEL_TEAM_ID is not set in repository secrets"
+            exit 1
+          fi
+          if [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ]; then
+            echo "Error: VERCEL_PROJECT_ID is not set in repository secrets"
+            exit 1
+          fi
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
@@ -62,3 +92,4 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ./
+          prod: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.ref == 'main') || (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main') }}
