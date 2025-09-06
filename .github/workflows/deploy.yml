@@ -17,11 +17,7 @@ on:
       
 jobs:
   deploy:
-<<<<<<< HEAD
     name: Deploy to Vercel
-=======
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
->>>>>>> ac7974dfc741fc7262708a84fa7f5cd0a93481b6
     runs-on: ubuntu-latest
     concurrency:
       group: vercel-deploy
@@ -49,42 +45,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          rm -rf node_modules package-lock.json
-          npm install -g npm@latest
-          npm install @rollup/rollup-linux-x64-gnu --save-optional
-          npm install --no-optional
-          npm install
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
       - name: Build (Vite)
-        env:
-          CI: false  # This prevents treating warnings as errors
         run: npm run build
 
       - name: Ensure build output exists
         run: |
-          if [ ! -d dist ]; then 
-            echo "Build failed: dist/ not found"
-            echo "Build output:"
-            ls -la
-            exit 1
-          fi
-          echo "Build output contents:"
-          ls -la dist/
-
-      - name: Validate Vercel Configuration
-        run: |
-          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
-            echo "Error: VERCEL_TOKEN is not set in repository secrets"
-            exit 1
-          fi
-          if [ -z "${{ secrets.VERCEL_TEAM_ID }}" ]; then
-            echo "Error: VERCEL_TEAM_ID is not set in repository secrets"
-            exit 1
-          fi
-          if [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ]; then
-            echo "Error: VERCEL_PROJECT_ID is not set in repository secrets"
-            exit 1
-          fi
+          if [ ! -d dist ]; then echo "Build failed: dist/ not found"; exit 1; fi
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
@@ -93,9 +61,4 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_TEAM_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-<<<<<<< HEAD
           working-directory: ./
-=======
-          working-directory: ./
-          prod: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.ref == 'main') || (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main') }}
->>>>>>> ac7974dfc741fc7262708a84fa7f5cd0a93481b6
