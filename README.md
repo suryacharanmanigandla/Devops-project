@@ -63,20 +63,64 @@ src/
 ├── App.jsx                # Root component
 ├── main.jsx               # Entry point (mounts App, imports global styles)
 ├── WeatherApp.jsx         # Container: state, data fetching, feature wiring
-├── components/
-│   ├── SearchBox.jsx      # Presentational search + voice input
-│   ├── CurrentWeather.jsx # Current weather card (presentational)
-│   ├── DailyForecast.jsx  # 7-day horizontal forecast (presentational)
-│   ├── HourlyChart.jsx    # Hourly chart (presentational)
-│   ├── MapView.jsx        # Map + radar overlay (presentational)
-│   └── Widgets.jsx        # Mini widget cards (UV, feels-like, AQI)
-├── services/
-│   └── weatherService.js  # API calls (OpenWeather, Air Pollution)
-├── hooks/
-│   └── useGeolocation.js  # Geolocation hook
-└── styles/
-    └── weather-ui.css     # Global UI styles (glassmorphism, gradients)
+├── SearchBox.jsx          # Search component
+├── InfoBox.jsx            # Info display component
+├── CombinedComponents.jsx # Combined components
+├── weatherMap.js          # Weather map functionality
+├── App.css                # App styles
+├── index.css              # Global styles
+├── SearchBox.css          # SearchBox styles
+└── assets/
+    └── react.svg          # React logo asset
 ```
+
+## 🐳 Docker Containerization & Deployment by Mukesh Kumar
+
+### Branch: `docker`
+
+#### 🛠️ Summary of Changes
+
+- **Dockerfile Added:**
+  - Implemented a **multi-stage Dockerfile** for optimized builds:
+    - **Stage 1 (Builder):** Used `node:18` to install dependencies and build the React app.
+    - **Stage 2 (Runtime):** Used lightweight `nginx:alpine` to serve the production build.
+  - This approach reduced final image size and improved runtime performance.
+
+- **Docker Compose Setup:**
+  - Created `docker-compose.yml` for simplified container orchestration.
+  - Configured the React app service with:
+    - Auto-restart policy (`restart: always`)
+    - Port mapping (`3000:80`) for local access
+    - Container name `skycast-container`
+
+- **Local Build & Run:**
+  - Built the image with:
+    ```bash
+    docker build -t skycast .
+    ```
+  - Ran locally with:
+    ```bash
+    docker run -d -p 3000:80 skycast
+    ```
+  - Verified functionality at: `http://localhost:3000`
+
+- **DockerHub Integration:**
+  - Tagged and pushed the image to DockerHub:
+    ```bash
+    docker tag skycast mukeshdockerhub/skycast:latest
+    docker push mukeshdockerhub/skycast:latest
+    ```
+  - Final public image available at:
+    👉 [dockerhub.com/mukeshdockerhub/skycast](https://hub.docker.com/r/mukesh172/skycast-web)
+
+- **Outcome:**
+  - Application is now fully containerized and portable.
+  - Team members and reviewers can run the app instantly using:
+    ```bash
+    docker run -d -p 3000:80 mukeshdockerhub/skycast:latest
+    ```
+  - Ensured **consistency across environments**, faster setup, and production-ready deployment workflow.
+
 
 ## 🚀 Continuous Integration (CI) & Testing Setup by Sai Teja
 

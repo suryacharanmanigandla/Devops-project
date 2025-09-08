@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+// Sample test file
 
 describe('Sample Test', () => {
   it('should pass', () => {

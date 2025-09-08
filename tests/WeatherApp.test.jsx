@@ -1,7 +1,8 @@
+
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import {render, screen} from '@testing-library/react';
+// Test file for WeatherApp component
 import WeatherApp from '../src/WeatherApp.jsx';
 
 describe('WeatherApp', () => {

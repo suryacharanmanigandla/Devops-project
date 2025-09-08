@@ -34,4 +34,30 @@ export default [
       ],
     },
   },
+
+  // Jest environment for test files
+  {
+    files: ["tests/**/*.test.jsx"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      }
+    }
+  },
+
+  // Environment for mock files - supporting both CommonJS and ES modules
+  {
+    files: ["tests/__mocks__/*.js"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        module: 'readonly'
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      }
+    }
+  }
 ]
