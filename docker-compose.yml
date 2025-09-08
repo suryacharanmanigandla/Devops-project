@@ -1,0 +1,5 @@
+services:
+  web:
+    image: mukesh172/skycast-web:latest
+    ports:
+      - "5000:80"
