@@ -78,6 +78,54 @@ src/
     └── weather-ui.css     # Global UI styles (glassmorphism, gradients)
 ```
 
+## 🐳 Docker Containerization & Deployment by Mukesh Kumar
+
+### Branch: `docker`
+
+#### 🛠️ Summary of Changes
+
+- **Dockerfile Added:**
+  - Implemented a **multi-stage Dockerfile** for optimized builds:
+    - **Stage 1 (Builder):** Used `node:18` to install dependencies and build the React app.
+    - **Stage 2 (Runtime):** Used lightweight `nginx:alpine` to serve the production build.
+  - This approach reduced final image size and improved runtime performance.
+
+- **Docker Compose Setup:**
+  - Created `docker-compose.yml` for simplified container orchestration.
+  - Configured the React app service with:
+    - Auto-restart policy (`restart: always`)
+    - Port mapping (`3000:80`) for local access
+    - Container name `skycast-container`
+
+- **Local Build & Run:**
+  - Built the image with:
+    ```bash
+    docker build -t skycast .
+    ```
+  - Ran locally with:
+    ```bash
+    docker run -d -p 3000:80 skycast
+    ```
+  - Verified functionality at: `http://localhost:3000`
+
+- **DockerHub Integration:**
+  - Tagged and pushed the image to DockerHub:
+    ```bash
+    docker tag skycast mukeshdockerhub/skycast:latest
+    docker push mukeshdockerhub/skycast:latest
+    ```
+  - Final public image available at:
+    👉 [dockerhub.com/mukeshdockerhub/skycast](https://hub.docker.com/r/mukesh172/skycast-web)
+
+- **Outcome:**
+  - Application is now fully containerized and portable.
+  - Team members and reviewers can run the app instantly using:
+    ```bash
+    docker run -d -p 3000:80 mukeshdockerhub/skycast:latest
+    ```
+  - Ensured **consistency across environments**, faster setup, and production-ready deployment workflow.
+
+
 ## 🚀 Continuous Integration (CI) & Testing Setup by Sai Teja
 
 ### Branch: `ci`
