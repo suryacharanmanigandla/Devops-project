@@ -1,0 +1,11 @@
+# Global configuration
+global:
+  scrape_interval: 5s   # Prometheus scrapes metrics every 5 seconds
+  evaluation_interval: 5s
+
+# Scrape jobs
+scrape_configs:
+  # cAdvisor metrics (container stats)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']   # cAdvisor container URL
