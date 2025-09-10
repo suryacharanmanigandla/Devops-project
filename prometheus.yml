@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Monitor Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Monitor cAdvisor - NEWLY ADDED
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['localhost:9200']  # cAdvisor on host port 9200
+
+  # Monitor your SkyCast app
+  - job_name: 'skycast-app'
+    static_configs:
+      - targets: ['localhost:80']    # SkyCast on host port 80
+
+  # Optional: Node exporter if you have it
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9100']  # Node exporter usually on 9100
