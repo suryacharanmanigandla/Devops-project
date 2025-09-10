@@ -35,9 +35,9 @@ describe('SearchBox', () => {
 
   it('handles API error', async () => {
     const mockUpdate = vi.fn();
-    // Mock fetch to reject, but catch the rejection globally to prevent workflow failure
+    // Mock fetch to reject
     const originalFetch = window.fetch;
-    window.fetch = vi.fn(() => Promise.reject('API error').catch(() => {}));
+    window.fetch = vi.fn(() => Promise.reject(new Error('API error')));
     render(<SearchBox updateInfo={mockUpdate} />);
     fireEvent.change(screen.getByLabelText(/City Name/i), { target: { value: 'InvalidCity' } });
     fireEvent.click(screen.getByRole('button', { name: /Search/i }));

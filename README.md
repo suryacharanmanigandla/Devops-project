@@ -1,9 +1,130 @@
-# React + Vite
+# SkyCast 
+
+**Group 2 Project**  
+**GitHub Repository**: https://github.com/suryacharanmanigandla/Devops-project.git
+
+## 🌟 Project Overview
+
+SkyCast is a modern React-based weather application that demonstrates the implementation of DevOps principles through a full-stack development approach. This project showcases how different phases of learning - including frontend and backend development - come together to create a seamless user experience.
+
+## 👥 Team Members & DevOps Roles
+
+- **23211a6770** - Git Manager (Version Control & Repository Management)
+- **23211a6781** - Docker Manager (Containerization & Deployment)
+- **23211a67a6** - Planning (Project Architecture & Strategy)
+- **23211a67a7** - Coding (Frontend + Backend Development) 
+- **23211a67b8** - CI (Continuous Integration)
+- **23211a67c1** - CD (Continuous Deployment)
+- **23211a67c2** - Monitoring (System Monitoring & Observability)
+
+
+### Frontend Development and Backend Development by Bhargav(React + Vite)
+
+
+## 🏗️ Technical Implementation Details
+
+### Frontend Stack
+- **React 19.1.0**: Latest React with modern hooks
+- **Vite**: Fast build tool and development server
+- **Material-UI**: Component library for consistent design
+- **Framer Motion**: Animation library for smooth interactions
+- **CSS Modules**: Scoped styling approach
+
+### Backend Integration
+- **OpenWeatherMap API**: Real-time weather data source
+- **RESTful API Design**: Standard HTTP methods and responses
+- **Error Handling**: Comprehensive error states and user feedback
+- **Data Validation**: Input sanitization and response validation
+
+
+## 🛠️ Development Workflow
+
+### Getting Started
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linting
+npm run lint
+```
+
+### Project Structure
+```
+src/
+├── App.jsx                # Root component
+├── main.jsx               # Entry point (mounts App, imports global styles)
+├── WeatherApp.jsx         # Container: state, data fetching, feature wiring
+├── SearchBox.jsx          # Search component
+├── InfoBox.jsx            # Info display component
+├── CombinedComponents.jsx # Combined components
+├── weatherMap.js          # Weather map functionality
+├── App.css                # App styles
+├── index.css              # Global styles
+├── SearchBox.css          # SearchBox styles
+└── assets/
+    └── react.svg          # React logo asset
+```
+
+## 🐳 Docker Containerization & Deployment by Mukesh Kumar
+
+### Branch: `docker`
+
+#### 🛠️ Summary of Changes
+
+- **Dockerfile Added:**
+  - Implemented a **multi-stage Dockerfile** for optimized builds:
+    - **Stage 1 (Builder):** Used `node:18` to install dependencies and build the React app.
+    - **Stage 2 (Runtime):** Used lightweight `nginx:alpine` to serve the production build.
+  - This approach reduced final image size and improved runtime performance.
+
+- **Docker Compose Setup:**
+  - Created `docker-compose.yml` for simplified container orchestration.
+  - Configured the React app service with:
+    - Auto-restart policy (`restart: always`)
+    - Port mapping (`3000:80`) for local access
+    - Container name `skycast-container`
+
+- **Local Build & Run:**
+  - Built the image with:
+    ```bash
+    docker build -t skycast .
+    ```
+  - Ran locally with:
+    ```bash
+    docker run -d -p 3000:80 skycast
+    ```
+  - Verified functionality at: `http://localhost:3000`
+
+- **DockerHub Integration:**
+  - Tagged and pushed the image to DockerHub:
+    ```bash
+    docker tag skycast mukeshdockerhub/skycast:latest
+    docker push mukeshdockerhub/skycast:latest
+    ```
+  - Final public image available at:
+    👉 [dockerhub.com/mukeshdockerhub/skycast](https://hub.docker.com/r/mukesh172/skycast-web)
+
+- **Outcome:**
+  - Application is now fully containerized and portable.
+  - Team members and reviewers can run the app instantly using:
+    ```bash
+    docker run -d -p 3000:80 mukeshdockerhub/skycast:latest
+    ```
+  - Ensured **consistency across environments**, faster setup, and production-ready deployment workflow.
 
 
 ## 🚀 Continuous Integration (CI) & Testing Setup by Sai Teja
 
-### Branch: `ci/cd`
+### Branch: `ci`
 
 #### 🛠️ Summary of Changes
 
@@ -28,7 +149,7 @@
 - **Branch Management:**
 	- All CI/CD changes are made in a dedicated branch (`ci/cd`) to avoid disrupting the main branch.
 
-#### ⚙️ How the CI/CD Works
+#### ⚙️ How the CI Works
 
 1. **On every push**, GitHub Actions triggers the workflow.
 2. **Dependencies are installed** using Node.js 20.
@@ -53,3 +174,41 @@
 ---
 
 _All changes made by Sai Teja (Continuous Integration) ensure robust, automated quality checks for every code update. This setup helps maintain code quality, security, and reliability as the project evolves. Every step is documented and automated for future scalability._
+
+
+## 🚀 Continuous Deployment (CD) with Vercel by Sai Prasad
+----
+
+** I was responsible for implementing Continuous Deployment (CD) in this project. The goal was to automate deployment to Vercel whenever the project is updated.
+
+1. Created a GitHub Actions workflow (deploy.yml) for automated deployment.
+2. Configured the workflow to:
+3. Run manually (workflow_dispatch) when needed.
+4. Trigger automatically after a successful CI pipeline (handled by other teammates).
+5. Ensured the app is built using Vite before deployment.
+6. Verified build output (dist/ folder) to avoid broken deployments.
+7. Integrated deployment with Vercel using amondnet/vercel-action
+
+
+### ⚡ Deployment Details
+
+- Production Deploys → Triggered when changes are pushed to the main branch.
+
+- Preview Deploys → Available from other branches or manual trigger.
+
+- Secrets Used (stored securely in GitHub):
+
+- VERCEL_TOKEN → Vercel authentication token.
+
+- VERCEL_TEAM_ID → Vercel team/org ID.
+
+- VERCEL_PROJECT_ID → Vercel project ID.
+
+
+### ✅ Outcome
+
+** The project is now automatically deployed to Vercel after every successful CI run.
+
+** This ensures a fast, reliable, and production-ready deployment process.
+
+** Manual deployment option is available when needed.
