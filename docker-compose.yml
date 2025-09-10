@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   web:
     image: mukesh172/skycast-web:latest
@@ -26,12 +28,15 @@ services:
       - prometheus
 
   cadvisor:
-    image: google/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     ports:
       - "9200:8080"   # cAdvisor metrics UI
     volumes:
-      - /c/Users:/rootfs:ro           # Only mount C drive user folder
+      - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+      - /c:/c:ro
+    privileged: true
+    restart: unless-stopped
