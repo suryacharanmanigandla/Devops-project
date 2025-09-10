@@ -212,3 +212,48 @@ _All changes made by Sai Teja (Continuous Integration) ensure robust, automated 
 ** This ensures a fast, reliable, and production-ready deployment process.
 
 ** Manual deployment option is available when needed.
+
+Got it! Here's a clean **Monitoring section** without tables — simple, narrative style with just the links:
+
+---
+
+## 🖥️ Monitoring & Observability by 23211A67C2 (Jeshwanth)
+
+**Branch:** `monitoring`
+
+### 🌟 Overview
+
+Monitoring ensures that **SkyCast remains reliable, available, and performant**. We implemented real-time container monitoring, metrics collection, and visualization using free, open-source tools.
+
+### 🔧 Tools & Access
+
+* **Docker**
+  Used to check container status, view logs, and monitor CPU/memory/network usage. Commands like `docker ps`, `docker logs skycast-container`, and `docker stats` provide quick insights into the app’s health.
+
+* **cAdvisor**
+  Provides container-level metrics such as CPU, memory, network, and disk usage. Access it locally at: [http://localhost:9200](http://localhost:9200)
+
+* **Prometheus**
+  Collects metrics from cAdvisor and other services, scraping data every few seconds. Access it locally at: [http://localhost:9100](http://localhost:9100)
+
+* **Grafana**
+  Visualizes metrics in real-time dashboards for easy monitoring of CPU, memory, network, and container uptime. Access it locally at: [http://localhost:3010](http://localhost:3010)
+
+### ✅ Outcomes
+
+* Real-time visibility into SkyCast’s health and resource usage.
+* Logs and metrics help quickly identify and debug issues.
+* Provides a foundation for future improvements like alerting or centralized log management.
+
+### 🌟 Future Enhancements
+
+* Add **alerts** in Prometheus to notify via email or Slack for high CPU/memory usage or downtime.
+* Collect **application-level metrics** like API response times and failed requests.
+* Centralize logs using the **ELK Stack** (Elasticsearch, Logstash, Kibana) for more detailed observability.
+
+---
+
+If you want, I can also **write a short one-paragraph version** that you can directly paste into your report or presentation — super concise and easy to explain in class.
+
+Do you want me to do that?
+
