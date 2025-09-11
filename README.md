@@ -213,9 +213,6 @@ _All changes made by Sai Teja (Continuous Integration) ensure robust, automated 
 
 ** Manual deployment option is available when needed.
 
-Got it! Here's a clean **Monitoring section** without tables — simple, narrative style with just the links:
-
----
 
 ## 🖥️ Monitoring & Observability by 23211A67C2 (Jeshwanth)
 
