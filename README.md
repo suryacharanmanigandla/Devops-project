@@ -231,10 +231,10 @@ Monitoring ensures that **SkyCast remains reliable, available, and performant**.
   Provides container-level metrics such as CPU, memory, network, and disk usage. Access it locally at: [http://localhost:9200](http://localhost:9200)
 
 * **Prometheus**
-  Collects metrics from cAdvisor and other services, scraping data every few seconds. Access it locally at: [http://localhost:9100](http://localhost:9100)
+  Collects metrics from cAdvisor and other services, scraping data every few seconds. Access it locally at: [http://localhost:9090](http://localhost:9090)
 
 * **Grafana**
-  Visualizes metrics in real-time dashboards for easy monitoring of CPU, memory, network, and container uptime. Access it locally at: [http://localhost:3010](http://localhost:3010)
+  Visualizes metrics in real-time dashboards for easy monitoring of CPU, memory, network, and container uptime. Access it locally at: [http://localhost:3000](http://localhost:3000)
 
 ### ✅ Outcomes
 
