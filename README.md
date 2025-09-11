@@ -251,9 +251,3 @@ Monitoring ensures that **SkyCast remains reliable, available, and performant**.
 * Collect **application-level metrics** like API response times and failed requests.
 * Centralize logs using the **ELK Stack** (Elasticsearch, Logstash, Kibana) for more detailed observability.
 
----
-
-If you want, I can also **write a short one-paragraph version** that you can directly paste into your report or presentation — super concise and easy to explain in class.
-
-Do you want me to do that?
-
