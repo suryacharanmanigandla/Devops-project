@@ -7,18 +7,10 @@
 
 SkyCast is a modern React-based weather application that demonstrates the implementation of DevOps principles through a full-stack development approach. This project showcases how different phases of learning - including frontend and backend development - come together to create a seamless user experience.
 
-## 👥 Team Members & DevOps Roles
-
-- **23211a6770** - Git Manager (Version Control & Repository Management)
-- **23211a6781** - Docker Manager (Containerization & Deployment)
-- **23211a67a6** - Planning (Project Architecture & Strategy)
-- **23211a67a7** - Coding (Frontend + Backend Development) 
-- **23211a67b8** - CI (Continuous Integration)
-- **23211a67c1** - CD (Continuous Deployment)
-- **23211a67c2** - Monitoring (System Monitoring & Observability)
 
 
-### Frontend Development and Backend Development by Bhargav(React + Vite)
+
+
 
 
 ## 🏗️ Technical Implementation Details
